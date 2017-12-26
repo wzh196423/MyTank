@@ -1,0 +1,23 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ScreenShot.cs">
+    <Files>
+      <File FileName="Assets/Scripts/gamemanager/PlayingState.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UI/LoginWinController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ScreenShot.cs" Line="43" Column="44" />
+      <File FileName="Assets/Scripts/Model/TankModel.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/photon/FlyAndBoom.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UI/GameOver.cs" Line="66" Column="79" />
+      <File FileName="Assets/Scripts/gamemanager/UIController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayFab/PlayFabUserData.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UI/MessageBox.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/gamemanager/GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/gamemanager/DeadState.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/gamemanager/EndState.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
