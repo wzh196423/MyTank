@@ -261,6 +261,7 @@
      <Compile Include="Assets\Scripts\PlayFab\MainPanelController.cs" />
      <Compile Include="Assets\Scripts\PlayFab\PlayFabUserData.cs" />
      <Compile Include="Assets\Scripts\ScreenShot.cs" />
+     <Compile Include="Assets\Scripts\UI\Boot.cs" />
      <Compile Include="Assets\Scripts\UI\CreateRoomPanelController.cs" />
      <Compile Include="Assets\Scripts\UI\DragText.cs" />
      <Compile Include="Assets\Scripts\UI\DropText.cs" />

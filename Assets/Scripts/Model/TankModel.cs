@@ -31,8 +31,8 @@ public class TankModel : PunBehaviour {
 
 
 
-    public GameObject driverCamera;
-    public GameObject shooterCamera;
+    public GameObject driverCameraObj;
+    public GameObject shooterCameraObj;
 
     public GameObject cannon;
     public GameObject tower;
@@ -162,18 +162,12 @@ public class TankModel : PunBehaviour {
 
     public void ShooterViewFieldChange(float value)
     {
-        shooterCamera.GetComponent<Camera>().fieldOfView = 100 - 70 * value;
+		shooterCameraObj.GetComponentInChildren<Camera>().fieldOfView = 100 - 70 * value;
     }
 
     //玩家的旋转函数
     public void DriverCameraRotate(float rh, float rv)
     {
-        /*
-        cameraRotateX -= driverCameraRotateSpeed * rh;
-        cameraRotateY += driverCameraRotateSpeed * rv;
-        cameraRotateX = Mathf.Clamp(cameraRotateX, driverCameraRotateXBoundry.min, driverCameraRotateXBoundry.max);
-        driverCamera.transform.localEulerAngles = new Vector3(cameraRotateX, cameraRotateY, 0.0f);
-        */
         float r = driverCameraRotateSpeed * rh * Time.deltaTime;
         cameraRotateY += r;
         if (cameraRotateY < driverCameraRotateYBoundry.min)
@@ -186,7 +180,7 @@ public class TankModel : PunBehaviour {
             r = r - (cameraRotateY - driverCameraRotateYBoundry.max);
             cameraRotateY = driverCameraRotateYBoundry.max;
         }
-        driverCamera.transform.Rotate(new Vector3(0, r, 0));
+        driverCameraObj.transform.Rotate(new Vector3(0, r, 0));
 
         float p = driverCameraPositionSpeed * rv * Time.deltaTime;
         cameraPositionY += p;
@@ -201,23 +195,7 @@ public class TankModel : PunBehaviour {
             p = p - (cameraPositionY - driverCameraPositionYBoundry.max);
             cameraPositionY = driverCameraPositionYBoundry.max;
         }
-        driverCamera.transform.Translate(new Vector3(0, p, 0));
-
-        /*
-        cameraRotateY += driverCameraRotateSpeed * rh;
-
-        cameraRotateY = Mathf.Clamp(cameraRotateY, driverCameraRotateYBoundry.min, driverCameraRotateYBoundry.max);
-        cameraPositionY += driverCameraRotateSpeed * rv;
-        cameraPositionY = Mathf.Clamp(cameraPositionY, driverCameraPositionYBoundry.min, driverCameraPositionYBoundry.max);
-
-       
-        driverCamera.transform.localPosition = new Vector3(driverCamera.transform.localPosition.x, cameraPositionY, driverCamera.transform.localPosition.z);
-        driverCamera.transform.localRotation =  new Quaternion(driverCamera.transform.localRotation.x, driverCamera.transform.localRotation.y+cameraRotateY, driverCamera.transform.localRotation.z, driverCamera.transform.localRotation.w);
-        //driverCamera.transform.Translate(new Vector3(0.0f, cameraRotateY, 0.0f));
-        //driverCamera.transform.Rotate(new Vector3(0, cameraRotateX, 0.0f));
-        */
-        //Debug.Log("p:" + driverCamera.transform.localPosition);
-        //Debug.Log("r:" + driverCamera.transform.localRotation);
+		driverCameraObj.transform.Translate(new Vector3(0, p, 0));
     }
 
 
@@ -242,19 +220,19 @@ public class TankModel : PunBehaviour {
 	[PunRPC]
 	void UpdateHP(int newHP,PhotonPlayer attacker)
     {
+		GameManager gm = GameManager.GetGMInstance ();
+		string attackTeam = attacker.CustomProperties ["Team"].ToString ();
+		string thisTankTeam = gameObject.name;
 		if (/*gameObject == GameManager.GetGMInstance ().localTank && */ health > newHP) {
 			Debug.Log("health:"+health+",newHP:"+newHP);
-			GameManager gm = GameManager.GetGMInstance ();
-			string team = attacker.CustomProperties ["Team"].ToString ();
-			if (gm.damageRecord.ContainsKey (team)) {// 如果该队已经有分数记录，就加分
-				gm.damageRecord [team] = gm.damageRecord [team] + (health - newHP);
-			} else {// 如果该队没有分数记录，就增加一条记录
-				gm.damageRecord [team] = health - newHP;
+			if (attackTeam != thisTankTeam) {// 自己打自己不加分
+				gm.damageRecord [attackTeam] = gm.damageRecord [attackTeam] + (health - newHP);
 			}
 			playDamageEffect ();
 		}
-		Debug.Log ("score:" + GameManager.GetGMInstance ().damageRecord [attacker.CustomProperties ["Team"].ToString ()]);
+		Debug.Log ("score:" + GameManager.GetGMInstance ().damageRecord [attackTeam]);
 		health = newHP;     //更新玩家血量
+		//gm.healthRecord[thisTankTeam] = newHP;;
         if (health <= 0)
         {   //如果玩家已死亡
             isAlive = false;

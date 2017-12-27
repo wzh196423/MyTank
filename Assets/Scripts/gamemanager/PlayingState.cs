@@ -45,14 +45,16 @@ public class PlayingState : BaseState {
 
     override public void Exit()
     {
-        if (gm.tankModel.health == 0)
+		if (gm.tankModel.health == 0 && PhotonNetwork.player.CustomProperties["Character"].ToString() == "driver")
         {
             gm.photonView.RPC("UpdateDeadList", PhotonTargets.All, gm.localTank.name);
         }
         
         gm.localTank.GetPhotonView().TransferOwnership(PhotonNetwork.masterClient);
+		gm.localTank.transform.Find("DriverCameraObj").gameObject.GetPhotonView().TransferOwnership(PhotonNetwork.masterClient);
         gm.localTank.transform.Find("tower").gameObject.GetPhotonView().TransferOwnership(PhotonNetwork.masterClient);
         gm.localTank.transform.Find("tower/cannon").gameObject.GetPhotonView().TransferOwnership(PhotonNetwork.masterClient);
+		gm.localTank.transform.Find ("tower/cannon/ShooterCameraObj").gameObject.GetPhotonView ().TransferOwnership (PhotonNetwork.masterClient);
         /*
         foreach(PhotonPlayer player in PhotonNetwork.playerList)
         {

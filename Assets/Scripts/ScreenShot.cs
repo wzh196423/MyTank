@@ -6,7 +6,7 @@ using System;
 using UnityEngine.UI;
 
 public class ScreenShot : MonoBehaviour {
-	public GameObject MessageBoxPrefab;
+	//public GameObject MessageBoxPrefab;
 	public Button shareButton;
 	public Text uploadingInfo;
 
@@ -47,13 +47,13 @@ public class ScreenShot : MonoBehaviour {
 		//uploadingInfo.gameObject.SetActive (false);
 		Debug.Log (www.text);
 
-		GameObject messageBox = Instantiate(MessageBoxPrefab);
+		//GameObject messageBox = Instantiate(MessageBoxPrefab);
 		if (www.text.Contains("success")) {
-			messageBox.GetComponent<MessageBox> ().Show ("战绩截图分享成功");
+			//messageBox.GetComponent<MessageBox> ().Show ("战绩截图分享成功");
 			shareButton.GetComponentInChildren<Text>().text = "已分享";
 		} else {
 			Debug.Log (www.error);
-			messageBox.GetComponent<MessageBox> ().Show ("分享失败，请重试!");
+			//messageBox.GetComponent<MessageBox> ().Show ("分享失败，请重试!");
 			shareButton.interactable = true;
 		}       
 	}

@@ -51,11 +51,13 @@ public class GameManager : PunBehaviour
     [HideInInspector]
     public HashSet<string> dead_tank_list = new HashSet<string>();//死亡坦克的名单，存的队名
     [HideInInspector]
-    public List<GameObject> tank_list = new List<GameObject>();
+    public List<string> tank_list = new List<string>();// 所有坦克的名单，存的队名
     [HideInInspector]
     public int livedTankCount;
 	[HideInInspector]
 	public Dictionary<string,int> damageRecord = new Dictionary<string, int>();
+	[HideInInspector]
+	public Dictionary<string,int> healthRecord = new Dictionary<string, int>();
 
     ExitGames.Client.Photon.Hashtable playerCustomProperties;
 
@@ -187,8 +189,9 @@ public class GameManager : PunBehaviour
         {       //遍历房间内所有玩家
             if (p.CustomProperties["Character"].ToString() == "driver")
             {   //如果有人未准备
-                GameObject tankOBJ = PhotonNetwork.Instantiate("tank", locations[tankID++], Quaternion.identity, 0);
+				GameObject tankOBJ = PhotonNetwork.Instantiate("tank", locations[tankID++], Quaternion.identity, 0);
                 tankOBJ.GetPhotonView().TransferOwnership(p);
+				tankOBJ.transform.Find("DriverCameraObj").gameObject.GetPhotonView().TransferOwnership(p);
                 CustomProperties = new ExitGames.Client.Photon.Hashtable() {	//初始化玩家自定义属性
 					{ "Team",p.CustomProperties["Team"].ToString() },		//玩家队伍
 					{"ID",tankOBJ.GetPhotonView().viewID},
@@ -209,6 +212,8 @@ public class GameManager : PunBehaviour
                         p1.SetCustomProperties(CustomProperties);
                         tankOBJ.transform.Find("tower").gameObject.GetPhotonView().TransferOwnership(p1);
                         tankOBJ.transform.Find("tower/cannon").gameObject.GetPhotonView().TransferOwnership(p1);
+						tankOBJ.transform.Find("tower/cannon/ShooterCameraObj").gameObject.GetPhotonView().TransferOwnership(p1);
+
                     }
                 }
             }
@@ -224,13 +229,16 @@ public class GameManager : PunBehaviour
 
         foreach (GameObject tankOBJ in GameObject.FindGameObjectsWithTag("Player"))
         {
-            tank_list.Add(tankOBJ);
+			
             foreach (PhotonPlayer p in PhotonNetwork.playerList)
             {
                 print((int)p.CustomProperties["ID"] + " :" + tankOBJ.GetPhotonView().viewID);
                 if ((int)p.CustomProperties["ID"] == tankOBJ.GetPhotonView().viewID)
                 {
                     tankOBJ.name = p.CustomProperties["Team"].ToString();
+					tank_list.Add(tankOBJ.name);
+					if (!damageRecord.ContainsKey(tankOBJ.name))
+						damageRecord.Add (tankOBJ.name, 0);
                     break;
                 }
             }
@@ -243,7 +251,7 @@ public class GameManager : PunBehaviour
                     UICtrl.EnableDriverCanvas();
                     UICtrl.DisableShooterCanvas();
                     
-                    tankModel.driverCamera.SetActive(true);
+					tankModel.driverCameraObj.transform.GetChild(0).gameObject.SetActive(true);
                     localTank.GetComponent<DriverController>().enabled = true;
                     localTank.GetComponent<ShooterController>().enabled = false;
 
@@ -255,7 +263,7 @@ public class GameManager : PunBehaviour
                     
                     localTank.GetComponent<DriverController>().enabled = false;
                     localTank.GetComponent<ShooterController>().enabled = true;
-                    tankModel.shooterCamera.SetActive(true);
+					tankModel.shooterCameraObj.transform.GetChild(0).gameObject.SetActive(true);
 
 
                 }
@@ -282,10 +290,12 @@ public class GameManager : PunBehaviour
 
     [PunRPC]
     public void DestroyTank(string tankName) {
+		GameObject tank = GameObject.Find(tankName);
+		if (!healthRecord.ContainsKey(tankName))
+			healthRecord.Add (tankName, tank.GetComponent<TankModel> ().health);
         if (PhotonNetwork.isMasterClient)
         {
-            GameObject tank = GameObject.Find(tankName);
-            if(tank != null)
+			if(tank != null)
                 PhotonNetwork.Destroy(tank);
         }
        
@@ -302,14 +312,18 @@ public class GameManager : PunBehaviour
 
     public GameObject SwitchCamera() {
         GameObject[] tanks = GameObject.FindGameObjectsWithTag("Player");
-        int index = (int)(Random.value * tanks.Length * 2);
+		int index = Random.Range(0,tanks.Length * 2);
+		Debug.Log ("random index: " + index);
+
         if(index % 2 == 0)
         {
-            return tanks[index / 2].GetComponent<TankModel>().driverCamera;
+			UICtrl.ChangeCurrentObservee (tanks [index / 2].name+"-driver");
+			return tanks[index / 2].GetComponent<TankModel>().driverCameraObj.transform.GetChild(0).gameObject;
         }
         else
         {
-            return tanks[index / 2].GetComponent<TankModel>().shooterCamera;
+			UICtrl.ChangeCurrentObservee (tanks [index / 2].name+"-shooter");
+			return tanks[index / 2].GetComponent<TankModel>().shooterCameraObj.transform.GetChild(0).gameObject;
         }
     }
 

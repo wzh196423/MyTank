@@ -23,7 +23,11 @@ public class DeadState : BaseState {
         gm.UICtrl.EnableLeaveRoomBtn();
         gm.UICtrl.EnableSwitchBtn();
         gm.UICtrl.switchBtn.GetComponent<Button>().onClick.AddListener(delegate {
-            gm.SwitchCamera();
+			Debug.Log("switch btn click");
+			if (curCamera != null)
+				curCamera.SetActive(false);
+			curCamera = gm.SwitchCamera();
+			curCamera.SetActive(true);
         });
         gm.UICtrl.DisableDriverCanvas();
         gm.UICtrl.DisableShooterCanvas();
@@ -40,11 +44,10 @@ public class DeadState : BaseState {
         if (gm.countDown <= 0.0)
             gm.countDown = 0.0;
         gm.UICtrl.SetTime(gm.countDown);
-        if (curCamera == null)
-        {
-            curCamera = gm.SwitchCamera();
-            curCamera.SetActive(true);
-        }
+		if (curCamera == null) {
+			curCamera = gm.SwitchCamera ();
+			curCamera.SetActive (true);
+		}
         
     }
 

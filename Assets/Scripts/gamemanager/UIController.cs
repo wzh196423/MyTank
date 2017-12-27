@@ -17,6 +17,7 @@ public class UIController: MonoBehaviour
     public GameObject timePanel;
     public GameObject deathInfo;
     public GameObject switchBtn;
+	public Text currentObservee;
     public GameObject canvasCamera;
 
     public void EnableCanvasCamera()
@@ -76,12 +77,18 @@ public class UIController: MonoBehaviour
     public void EnableSwitchBtn()
     {
         switchBtn.SetActive(true);
+		currentObservee.gameObject.SetActive (true);
     }
 
     public void DisableSwitchBtn()
     {
         switchBtn.SetActive(false);
+		currentObservee.gameObject.SetActive (false);
     }
+
+	public void ChangeCurrentObservee(string info){
+		currentObservee.text = "当前视角:" + info;
+	}
 
     public void EnableDriverCanvas()
     {

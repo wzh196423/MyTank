@@ -32,13 +32,18 @@ public class GameOver : MonoBehaviour {
         {
             gm.tank_list.Sort((tank1, tank2) =>
             {
-                return tank1.GetComponent<TankModel>().health - tank2.GetComponent<TankModel>().health;
+				// 排序逻辑，血多的在前，血一样的时候，分高的在前
+				if (gm.healthRecord[tank1] != gm.healthRecord[tank2])
+					return gm.healthRecord[tank1] - gm.healthRecord[tank2];
+				else{
+					return gm.damageRecord[tank1] - gm.damageRecord[tank2];
+				}
             });
-            foreach (GameObject tank in gm.tank_list)
+            foreach (string tank in gm.tank_list)
             {
-                if(!gm.dead_tank_list.Contains(tank.name))
+                if(!gm.dead_tank_list.Contains(tank))
                 {
-                    tankNames[index] = tank.name;
+                    tankNames[index] = tank;
                     index++;
                 }
             }
@@ -49,7 +54,11 @@ public class GameOver : MonoBehaviour {
 			string teamName = tankNames [tankNames.Length - i - 1];
 			GameResult gameresult = new GameResult ();
 			gameresult.rank = i + 1;
-			gameresult.damage = gm.damageRecord [teamName];
+			if (gm.damageRecord.ContainsKey (teamName)) {
+				gameresult.damage = gm.damageRecord [teamName];
+			} else {
+				gameresult.damage = 0;
+			}
 			rank[i].GetComponentInChildren<Text>().text = "第"+gameresult.rank+"名:"+ teamName + " 本局伤害:" + gameresult.damage;
 			if (teamName == PhotonNetwork.player.CustomProperties ["Team"].ToString()) { // 每个人更新自己的游戏数据
 				UpdateUserDataRequest request = new UpdateUserDataRequest();
