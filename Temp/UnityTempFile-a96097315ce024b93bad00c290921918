@@ -4,6 +4,7 @@
 -langversion:4
 -out:'Temp/Assembly-CSharp-Editor.dll'
 -unsafe
+-r:'Library/ScriptAssemblies/Assembly-CSharp.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll'
@@ -50,7 +51,6 @@
 -r:'/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VideoModule.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.WindModule.dll'
 -r:'Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll'
--r:'Library/ScriptAssemblies/Assembly-CSharp.dll'
 -r:'Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll'
 -r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll'
 -r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll'
@@ -187,7 +187,6 @@
 'Assets/Cleaner/Editor/CollectionData.cs'
 'Assets/Cleaner/Editor/FindUnusedAssetsWindow.cs'
 'Assets/Cleaner/Editor/ShaderReferenceCollection.cs'
-'Assets/Photon Unity Networking/Demos/DemoHub/Editor/PunStartup.cs'
 'Assets/Photon Unity Networking/Editor/PhotonNetwork/AccountService.cs'
 'Assets/Photon Unity Networking/Editor/PhotonNetwork/CullAreaEditor.cs'
 'Assets/Photon Unity Networking/Editor/PhotonNetwork/PhotonConverter.cs'
