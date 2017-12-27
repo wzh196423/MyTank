@@ -12,8 +12,10 @@ public class PlayFabUserData : MonoBehaviour
     public static string catalogVersion = "Cannon";      //游戏道具的目录名
 
     public static string playFabId = "";        //玩家账号的ID
-    public static string username = "wzh123";          //玩家账号的用户名
+    public static string username = "wzh666";          //玩家账号的用户名
     public static string email = "";            //玩家账号的绑定邮箱
+
+	public static int coinNum = 0;
 
     public static Dictionary<string, UserDataRecord> userData;  //PlayFab GameManager中存储的玩家自定义数据Player Data
 

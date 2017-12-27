@@ -36,6 +36,10 @@ public class MainPanelController : PunBehaviour {
 			shopMessagePanel.SetActive (false);
 		if (InventoryMessagePanel != null)
 			InventoryMessagePanel.SetActive (false);
+		if (startBtn != null)
+			startBtn.SetActive (false);
+		if (createRoomBtn != null)
+			createRoomBtn.SetActive (false);
 
 		//玩家登录后，需要同时向PlayFab发起4个请求
 		requestNum = 4;
@@ -132,6 +136,7 @@ public class MainPanelController : PunBehaviour {
 		Debug.Log("User Inventory Loaded");
 		//显示玩家的金币、钻石数量
 		goldCurrencyCount.text = "金币 : "+result.VirtualCurrency ["JB"].ToString();
+		PlayFabUserData.coinNum = int.Parse (result.VirtualCurrency ["JB"].ToString ());
 		//检测玩家是否拥有装备道具
 		bool hasEquipedWeapon = false;
 		foreach (ItemInstance i in result.Inventory) {
@@ -198,6 +203,8 @@ public class MainPanelController : PunBehaviour {
 		{
 			currency.SetActive(true);
 			roomMessagePanel.SetActive(true);
+			startBtn.SetActive (true);
+			createRoomBtn.SetActive (true);
 		}
 	}
 
@@ -212,6 +219,7 @@ public class MainPanelController : PunBehaviour {
 		startBtn.SetActive (true);
 		createRoomBtn.SetActive (true);
 		roomMessagePanel.SetActive (true);
+		PhotonNetwork.JoinLobby ();
 	}
 
 	public void ClickShopButton (){

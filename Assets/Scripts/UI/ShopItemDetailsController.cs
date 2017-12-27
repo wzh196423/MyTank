@@ -29,6 +29,10 @@ public class ShopItemDetailsController : MonoBehaviour {
 		//显示道具的详细信息（PlayFab GameManager存储的道具自定义属性）
 		customData = PlayFabSimpleJson.DeserializeObject<Dictionary<string,string>>(item.CustomData);
 		itemDescription.text = "";
+		if (GameInfo.weaponName2Img.ContainsKey(item.ItemId.Split('-')[0]))
+			itemImage.sprite = GameInfo.weaponName2Img [item.ItemId.Split('-')[0]];  //显示道具的图片
+		else
+			itemImage.sprite = null;
 		string temp = "";
 		foreach (KeyValuePair<string,string> kvp in customData) {
 			temp += "\n" + kvp.Key+":"+kvp.Value;

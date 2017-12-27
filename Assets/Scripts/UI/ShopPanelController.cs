@@ -122,16 +122,19 @@ public class ShopPanelController : MonoBehaviour {
 		else
 			end = start + itemsPerPage;
 		Text[] texts;
-		//Image[] images;
+		Image[] images;
 		Button button;
 		for (i = start, j = 0; i < end; i++, j++)
 		{
 			int itemNum = i;
 			texts = itemMessages[j].GetComponentsInChildren<Text>();
-			//images = itemMessage[j].GetComponentsInChildren<Image>();
+			images = itemMessages[j].GetComponentsInChildren<Image>();
 			button = itemMessages[j].GetComponentInChildren<Button>();
 			texts[0].text = shopItems[i].DisplayName;
-			//images[1].sprite = GameInfo.guns[shopItems[i].ItemClass];
+			if (GameInfo.weaponName2Img.ContainsKey (shopItems [i].ItemId.Split ('-') [0]))
+				images [1].sprite = GameInfo.weaponName2Img [shopItems [i].ItemId.Split ('-') [0]];
+			else
+				images [1].sprite = null;
 			//道具是金币购买还是钻石购买
 			if (shopItems[i].VirtualCurrencyPrices.ContainsKey("JB"))
 			{

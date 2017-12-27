@@ -21,7 +21,10 @@ public class InventoryItemDetailsController : MonoBehaviour {
 	void OnEnable () {
 		item = InventoryPanelController.userItems [InventoryPanelController.selectedItem];
 		itemName.text = item.DisplayName;
-//		itemImage.sprite = GameInfo.guns [item.ItemClass];  //显示道具的图片
+		if (GameInfo.weaponName2Img.ContainsKey (item.ItemId.Split ('-') [0]))
+			itemImage.sprite = GameInfo.weaponName2Img [item.ItemId.Split ('-') [0]];  //显示道具的图片
+		else
+			itemImage.sprite = null;
 		//显示道具的详细信息（PlayFab GameManager存储的道具自定义属性）
 		foreach (CatalogItem i in GameInfo.catalogItems) {
 			if (i.ItemId == item.ItemId) {

@@ -8,7 +8,7 @@ using PlayFab.Json;
 public class GameOver : MonoBehaviour {
     
     private GameManager gm;
-
+	public int coinPerGame;
     public GameObject[] rank;
 
     void Start() {
@@ -73,6 +73,17 @@ public class GameOver : MonoBehaviour {
 				request.Data.Add ("GameResult", PlayFabSimpleJson.SerializeObject(PlayFabUserData.gameResults));
 
 				PlayFabClientAPI.UpdateUserData(request, (result) => { }, (error) => { });
+
+				PlayFabUserData.coinNum += (coinPerGame + gameresult.damage);
+				AddUserVirtualCurrencyRequest req = new AddUserVirtualCurrencyRequest () {
+					Amount = coinPerGame + gameresult.damage,
+					VirtualCurrency = "JB"
+				};
+				PlayFabClientAPI.AddUserVirtualCurrency (req, (result) => {
+				}, (error) => {
+				});
+				// 更新游戏货币
+
 			}
 //			if (PhotonNetwork.isMasterClient) {
 //				// 跟新每局排名和伤害

@@ -22,6 +22,7 @@ c08b196716247885d3b27f7f282b2568 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 b027659a510ae8d01d6d5f31baf9827a Assembly-CSharp.dll:.PhotonStatsGui
 ce4b4cf85a0d32d97b780dc7eaead08a Assembly-CSharp.dll:.InventoryItemDetailsController
 a30beadf4d109f44144b9a9f42e61cbf Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.BlurOptimized
+1b359fa6045500b8fef2d48b9c60a628 Assembly-CSharp.dll:.Boot
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DriverController
 500c57c07393ea623562c2c51fa6d174 Assembly-CSharp.dll:.ShowInfoOfPlayer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ServerTime
@@ -181,7 +182,7 @@ a2efb0db652b8114d1ae7dd9a600d626 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 fe76270bd84ec3b6f2f6f92c69cf69da Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.AxisTouchButton
 88e745da281bc889e248b64cf4d72a54 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.SunShafts
 4ce2b1853c9a392b036a6a654be90ccb Assembly-CSharp.dll:.OnClickInstantiate
-49e1ce365185726786b4cc60b0739cc0 Assembly-CSharp.dll:.GameOver
+a6c3c5dfde49c2b52be2bc2fcd07c35f Assembly-CSharp.dll:.GameOver
 a7d3c6c6948d99dd4116e659ddcf5ac4 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.ButtonHandler
 a90e94673f50d2237c1b971c138660c6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMoveAndRotate
 090584907af2e462994cc893ced507b3 Assembly-CSharp.dll:.PhotonRigidbodyView
@@ -240,7 +241,7 @@ e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEng
 d2af69ce28cda6fcf0b7728ae3f251b4 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.DynamicShadowSettings
 00566559aaf2ba51543e32371603951b Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.NoiseAndGrain
 602017ac837ce39de79e6b98478ee720 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.SimpleActivatorMenu
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.GameInfo
+ca39f3690531a9564f2418c19569a324 Assembly-CSharp.dll:.GameInfo
 c1465577256149eb2fdaaf3754ab7da9 Assembly-CSharp.dll:.TiltWindow
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
@@ -287,4 +288,3 @@ b3432dfe180f02232d7612fb366593d3 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 ebd8fe968015af070b23482c497b16f9 Assembly-CSharp.dll:.CreateRoomPanelController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.InRoomTime
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch
-1b359fa6045500b8fef2d48b9c60a628 Assembly-CSharp.dll:.Boot

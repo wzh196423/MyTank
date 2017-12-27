@@ -81,7 +81,10 @@ public class InventoryPanelController : MonoBehaviour {
 			Button button = itemMessages [j].transform.Find ("Button").GetComponent<Button>();    //道具装备按钮
 
 			itemName.text = userItems [i].DisplayName;
-			//image.sprite = GameInfo.guns [userItems [i].ItemClass];
+			if (GameInfo.weaponName2Img.ContainsKey (userItems [i].ItemId.Split ('-') [0]))
+				image.sprite = GameInfo.weaponName2Img [userItems [i].ItemId.Split ('-') [0]];
+			else
+				image.sprite = null;
 			if (PlayFabUserData.equipedWeapon == userItems [i].ItemId) {
 				button.GetComponentInChildren<Text>().text = "已装备";
 				button.interactable = false;

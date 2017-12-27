@@ -10,7 +10,6 @@ public class CreateRoomPanelController : MonoBehaviour {
 	public Text roomName;					//房间名称文本
 	public Text roomNameHint;				//房间名称提示文本
 	public GameObject maxPlayerToggle;		//最大玩家个数开关组
-
 	private byte[] maxPlayerNum = { 4, 6, 8 };	//最大玩家个数
 
 	//创建房间面板激活时调用
@@ -54,8 +53,9 @@ public class CreateRoomPanelController : MonoBehaviour {
 
 	//"取消创建"按钮事件处理函数
 	public void ClickCancelCreateRoomButton(){
-		gameObject.SetActive (false);		//禁用创建房间面板
 		roomNameHint.text = "";					//清空房间名称提示文本
+		gameObject.SetActive (false);		//禁用创建房间面板
+		PhotonNetwork.JoinLobby();
 	}
 
 

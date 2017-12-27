@@ -34,9 +34,9 @@ public class ScreenShot : MonoBehaviour {
 		byte[] bytes = image.EncodeToPNG();
 		DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
 		string timestamp = ""+(long)(DateTime.Now - startTime).TotalMilliseconds;
-		string filename = "Record_"+PlayFabUserData.username +"_" + timestamp;
+		string filename = string.Format ("Record_{0}_{1}", PlayFabUserData.username, timestamp);
 		//File.WriteAllBytes(Application.streamingAssetsPath + "/" + filename+".png", bytes);
-		Debug.Log("write a pic "+filename);
+		Debug.Log("send a pic "+filename);
 
 		WWWForm form = new WWWForm();
 		form.AddBinaryData(filename, bytes);
@@ -44,13 +44,22 @@ public class ScreenShot : MonoBehaviour {
 
 		yield return www;
 		// do something after the upload is done or failed
-		//uploadingInfo.gameObject.SetActive (false);
-		Debug.Log (www.text);
+		Debug.Log ("upload file response: "+www.text);
 
 		//GameObject messageBox = Instantiate(MessageBoxPrefab);
 		if (www.text.Contains("success")) {
 			//messageBox.GetComponent<MessageBox> ().Show ("战绩截图分享成功");
-			shareButton.GetComponentInChildren<Text>().text = "已分享";
+			// 告诉服务器有人分享了战绩截图
+			string dest = string.Format("http://localhost:1337/userdata/updateRecord?username={0}&url={1}.png&time={2}"
+				,PlayFabUserData.username,"http://120.25.238.161/PM/tank/record-images/"+filename,timestamp);
+			WWW newWWW = new WWW (dest);
+			yield return newWWW;
+			if (newWWW.text.Contains ("success")) {
+				shareButton.GetComponentInChildren<Text> ().text = "已分享";
+			} else {
+				shareButton.interactable = true;
+			}
+			Debug.Log ("请求返回:" + newWWW.text);
 		} else {
 			Debug.Log (www.error);
 			//messageBox.GetComponent<MessageBox> ().Show ("分享失败，请重试!");
@@ -60,8 +69,6 @@ public class ScreenShot : MonoBehaviour {
 
 	public void ClickShareButton(){
 		shareButton.interactable = false;
-		//uploadingInfo.gameObject.SetActive (true);
-		Debug.Log ("appear");
 		StartCoroutine(SaveImage());
 	}
 }
